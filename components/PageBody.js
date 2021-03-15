@@ -9,7 +9,9 @@ const PageBody = ({ children }) => {
       <div css={xw`container px-6 mx-auto`}>
         <div css={xw`relative z-10 w-full`}>
           <div css={xw`w-full -mt-8 h-auto`}>
+            {/* 
             <SubMenu />
+            */}
             {/* Remove class [ h-64 ] when adding a card block */}
             <div css={xw`container mx-auto`}>
               <div

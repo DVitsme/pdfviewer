@@ -42,7 +42,7 @@ const PageTitle = () => {
       >
         {isHomePage ? (
           <h4 css={xw`text-2xl font-bold leading-tight text-white capitalize`}>
-            Home
+            PDFs
           </h4>
         ) : (
           <BreadCrumbPagination
@@ -52,15 +52,18 @@ const PageTitle = () => {
         )}
         <div css={xw`mt-6 lg:mt-0`}>
           <button
+            onClick={() => router.back()}
             css={xw`focus:outline-none mr-3 bg-transparent transition duration-150 ease-in-out hover:bg-gray-700 rounded text-white px-5 py-2 text-sm border border-white`}
           >
             Back
           </button>
-          <button
-            css={xw`focus:outline-none transition duration-150 ease-in-out hover:bg-gray-200 border bg-white rounded text-indigo-700 px-8 py-2 text-sm`}
-          >
-            Edit Profile
-          </button>
+          <Link href="/">
+            <a
+              css={xw`focus:outline-none transition cursor-pointer duration-150 ease-in-out hover:bg-gray-200 border bg-white rounded text-indigo-700 px-8 py-2 text-sm`}
+            >
+              Home
+            </a>
+          </Link>
         </div>
       </div>
     </div>
