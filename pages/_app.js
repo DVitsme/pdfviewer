@@ -1,13 +1,19 @@
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { Global } from "@emotion/react";
 import xw from "xwind";
+
+import { Global } from "@emotion/react";
+
 import Navigation from "../components/Navigation/Navigation";
 import PageTitle from "../components/PageTitle";
 import PageBody from "../components/PageBody";
+import { UserContext } from "../lib/context";
+import useAuth from "../hooks/useAuth";
 
 function App({ Component, pageProps }) {
+  const { user, loading } = useAuth();
   return (
-    <>
+    <UserContext.Provider value={{ user }}>
       <Head>
         <title>Variable Scoop References</title>
       </Head>
@@ -20,7 +26,7 @@ function App({ Component, pageProps }) {
       <PageBody>
         <Component {...pageProps} />
       </PageBody>
-    </>
+    </UserContext.Provider>
   );
 }
 

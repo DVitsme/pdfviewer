@@ -1,12 +1,27 @@
-import { Fragment } from "react";
+import React, { useContext, useState } from "react";
+
 import xw from "xwind";
 import Link from "next/link";
+import { IoMenuOutline } from "react-icons/io5";
 
-// Navigation Temp for v0.0.1 Deploy
-const Navigation = () => {
+import * as db from "../../lib/firebase";
+
+import { UserContext } from "../../lib/context";
+import NavigationMobile from "./NavigationMobile";
+import NavigationMiddleLinks from "./NavigationMiddleLinks";
+import NavigationUser from "./NavigationUser";
+
+const CompletedNavigation = () => {
+  const { user } = useContext(UserContext);
+
+  const [show, setShow] = useState(false);
+  const [profile, setProfile] = useState(false);
+
   return (
-    <Fragment>
+    <React.Fragment>
       {/* Mobile Starts */}
+
+      <NavigationMobile show={show} setShow={setShow} user={user} />
 
       {/* Mobile End */}
 
@@ -18,30 +33,48 @@ const Navigation = () => {
           css={xw`container px-6 h-16 flex items-center justify-between mx-auto`}
         >
           <div css={xw`flex items-center`}>
-            <div
-              css={xw`rounded-full relative flex justify-end text-gray-500`}
-            ></div>
+            <div css={xw`rounded-full relative flex justify-end text-gray-500`}>
+              <a href="https://variablescoop.com/">
+                <button
+                  css={xw`focus:outline-none mr-3 bg-transparent transition duration-150 ease-in-out hover:bg-gray-700 rounded text-white px-5 py-2 text-sm border border-white`}
+                >
+                  To Variable Scoop
+                </button>
+              </a>
+            </div>
           </div>
           {/* Button To Variable Scoop Ends */}
           {/* Middle Links Start */}
-          <Link href="/">
-            <a css={xw`text-white text-2xl font-semibold cursor-pointer`}>
-              Variable Scoop Tools
-            </a>
-          </Link>
+
+          <NavigationMiddleLinks />
 
           {/* Middle Links End */}
-          <div
-            aria-haspopup="true"
-            css={xw`cursor-pointer h-full xl:flex items-center justify-end hidden relative`}
-          >
-            <div css={xw`rounded`}></div>
+
+          {/* Show Authed User Start */}
+          {user ? (
+            <NavigationUser
+              setProfile={setProfile}
+              profile={profile}
+              signOut={db.signOut}
+              user={user}
+            />
+          ) : (
+            <div css={xw``}>
+              <Link href="/signin">
+                <button css={xw`text-white`}>Log In</button>
+              </Link>
+            </div>
+          )}
+          {/* Show Authed User End */}
+
+          <div onClick={() => setShow(!show)} css={xw`xl:hidden`}>
+            <IoMenuOutline />
           </div>
         </div>
       </nav>
       {/* Navigation ends */}
-    </Fragment>
+    </React.Fragment>
   );
 };
 
-export default Navigation;
+export default CompletedNavigation;

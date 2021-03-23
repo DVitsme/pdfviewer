@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import xw from "xwind";
+import Link from "next/link";
 import {
   IoCloseOutline,
   IoChevronDownOutline,
@@ -8,14 +9,15 @@ import {
   IoChatboxEllipsesOutline,
   IoNotificationsOutline,
 } from "react-icons/io5";
-const NavigationMobile = ({ show, setShow }) => {
+
+const NavigationMobile = ({ show, setShow, user }) => {
   const [product, setProduct] = useState(false);
   const [deliverables, setDeliverables] = useState(false);
   return (
     <div
       css={
         show
-          ? xw`w-full h-full absolute z-40  transform  translate-x-0`
+          ? xw`w-full h-full absolute z-40  transform  translate-x-0 fixed`
           : xw`w-full h-full absolute z-40  transform -translate-x-full`
       }
     >
@@ -263,16 +265,28 @@ const NavigationMobile = ({ show, setShow }) => {
             </div>
             <div css={xw`border-t border-gray-700`}>
               <div css={xw`w-full flex items-center justify-between px-6 pt-1`}>
-                <div css={xw`flex items-center`}>
-                  <img
-                    alt="profile-pic"
-                    src="https://tuk-cdn.s3.amazonaws.com/assets/components/boxed_layout/bl_1.png"
-                    css={xw`w-8 h-8 rounded-md`}
-                  />
-                  <p css={xw`md:text-xl text-white text-base leading-4 ml-2`}>
-                    Jane Doe
-                  </p>
-                </div>
+                {user ? (
+                  <div css={xw`flex items-center`}>
+                    <img
+                      alt="profile-pic"
+                      src={user?.photoURL}
+                      css={xw`w-8 h-8 rounded-md`}
+                    />
+                    <p css={xw`md:text-xl text-white text-base leading-4 ml-2`}>
+                      {user.displayName}
+                    </p>
+                  </div>
+                ) : (
+                  <div css={xw`flex items-center`}>
+                    <Link href="/signin">
+                      <a
+                        css={xw`md:text-xl text-white text-base leading-4 ml-2 cursor-pointer hover:text-blue-600`}
+                      >
+                        Sign In
+                      </a>
+                    </Link>
+                  </div>
+                )}
                 <ul css={xw`flex`}>
                   <li css={xw`cursor-pointer text-white pt-5 pb-3`}>
                     <IoChatboxEllipsesOutline />

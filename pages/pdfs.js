@@ -1,12 +1,13 @@
-import Link from "next/link";
+import React, { useContext } from "react";
+import ModalContainer from "../components/Modals/Index";
+import { UserContext } from "../lib/context";
 
 const pdfs = () => {
+  const { user } = useContext(UserContext);
+  console.log(user);
   return (
     <div>
-      <h1>What are you doing here?</h1>
-      <Link href="/">
-        <a>Go Home</a>
-      </Link>
+      <ModalContainer />
     </div>
   );
 };
